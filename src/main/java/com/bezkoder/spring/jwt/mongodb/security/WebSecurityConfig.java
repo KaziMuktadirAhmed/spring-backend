@@ -20,19 +20,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.bezkoder.spring.jwt.mongodb.security.jwt.AuthEntryPointJwt;
 import com.bezkoder.spring.jwt.mongodb.security.jwt.AuthTokenFilter;
 import com.bezkoder.spring.jwt.mongodb.security.services.UserDetailsServiceImpl;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
-//@EnableWebSecurity
 @EnableMethodSecurity
-//(securedEnabled = true,
-//jsr250Enabled = true,
-//prePostEnabled = true) // by default
 public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   @Autowired
   UserDetailsServiceImpl userDetailsService;
 
   @Autowired
   private AuthEntryPointJwt unauthorizedHandler;
+
+  @Autowired
+  private CorsConfig corsConfigurationSource;
 
   @Bean
   public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -87,11 +87,13 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     http.csrf(csrf -> csrf.disable())
         .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll().requestMatchers("/api/test/**")
-            .permitAll().anyRequest().authenticated());
+        .authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/**")
+                .permitAll()
+                .requestMatchers("/api/test/**")
+                .permitAll().anyRequest().authenticated());
 
     http.authenticationProvider(authenticationProvider());
-
+    http.cors().configurationSource(corsConfigurationSource);
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
