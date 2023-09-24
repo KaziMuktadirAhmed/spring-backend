@@ -1,12 +1,13 @@
 package com.bezkoder.spring.jwt.mongodb.controllers;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
 
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.bezkoder.spring.jwt.mongodb.models.ERole;
@@ -129,5 +131,32 @@ public class AuthController {
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
+
+	@GetMapping("me")
+	public ResponseEntity<?> getUserDetails(@RequestHeader("Authorization") String authToken) throws ParseException {
+		Base64.Decoder decoder = Base64.getUrlDecoder();
+		String jwtString = null;
+		if (StringUtils.hasText(authToken) && authToken.startsWith("Bearer ")) {
+			jwtString = authToken.substring(7, authToken.length());
+		}
+
+		if (jwtString != null && jwtUtils.validateJwtToken(jwtString)) {
+			String[] chunks = jwtString.split("\\.");
+			String jwtHeaderStr =  new String(decoder.decode(chunks[0]));
+			String jwtPayloadStr = new String(decoder.decode(chunks[1]));
+
+			JSONObject jo = (JSONObject) new JSONParser().parse(jwtPayloadStr);
+			String username = (String) jo.get("sub");
+
+			if (userRepository.existsByUsername(username)) {
+				Optional<User> currentUser = userRepository.findByUsername(username);
+				return ResponseEntity.ok(currentUser);
+			}
+
+			return ResponseEntity.status(404).body("User not found");
+		}
+
+		return ResponseEntity.ok("Unauthorized please log in");
 	}
 }

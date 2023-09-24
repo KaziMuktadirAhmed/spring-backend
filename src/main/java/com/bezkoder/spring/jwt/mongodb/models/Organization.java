@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "organizations")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Organization {
     @Id
