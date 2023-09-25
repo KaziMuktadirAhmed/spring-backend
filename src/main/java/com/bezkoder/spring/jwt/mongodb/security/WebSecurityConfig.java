@@ -1,5 +1,6 @@
 package com.bezkoder.spring.jwt.mongodb.security;
 
+import com.bezkoder.spring.jwt.mongodb.models.ERole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -82,6 +83,8 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/v1/organizations/**")
                 .permitAll()
                 .requestMatchers("/api/test/**")
+                .permitAll()
+                .requestMatchers("api/v1/admin/**")
                 .permitAll()
                 .anyRequest().authenticated());
 

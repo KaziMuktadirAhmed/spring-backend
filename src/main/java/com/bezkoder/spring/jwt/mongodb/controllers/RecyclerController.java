@@ -3,10 +3,13 @@ package com.bezkoder.spring.jwt.mongodb.controllers;
 import com.bezkoder.spring.jwt.mongodb.models.Recycler;
 import com.bezkoder.spring.jwt.mongodb.service.RecyclerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +48,11 @@ public class RecyclerController {
         } else {
             return new ResponseEntity<>("Recycler with ID " + id + " not found.", HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> adminTest() {
+        return new ResponseEntity<>("ADMIN TEST", HttpStatus.OK);
     }
 }
