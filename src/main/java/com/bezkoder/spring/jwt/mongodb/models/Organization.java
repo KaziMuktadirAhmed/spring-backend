@@ -1,6 +1,7 @@
 package com.bezkoder.spring.jwt.mongodb.models;
 
 import com.bezkoder.spring.jwt.mongodb.utils.Avatar;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,18 +16,23 @@ public class Organization {
     @Id
     private String id;
 
+    @JsonProperty("name")
     @Field(name = "name")
     private String name;
 
+    @JsonProperty("type")
     @Field(name = "type")
     private String type;
 
+    @JsonProperty("location")
     @Field(name = "location")
     private String location;
 
+    @JsonProperty("avatar")
     @Field(name = "avatar")
     private Avatar avatar;
 
+    @JsonProperty("phone")
     @Field(name = "phone")
     private String phone;
 

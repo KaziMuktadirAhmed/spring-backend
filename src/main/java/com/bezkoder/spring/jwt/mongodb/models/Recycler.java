@@ -1,5 +1,6 @@
 package com.bezkoder.spring.jwt.mongodb.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,18 +17,22 @@ public class Recycler {
     @Id
     private String id;
 
+    @JsonProperty("name")
     @Field(name = "name")
     private String name;
 
+    @JsonProperty("company")
     @Field(name = "company")
     private String company;
 
+    @JsonProperty("location")
     @Field(name = "location")
     private String location;
 
 //    @Field(name = "avatar")
 //    private Avatar avatar;
 
+    @JsonProperty("phone")
     @Field(name = "phone")
     private String phone;
 
