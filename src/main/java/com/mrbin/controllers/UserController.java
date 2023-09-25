@@ -18,6 +18,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    // For admin Dashboard
     @GetMapping(value = "admin/users")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> getAllUsers(){
