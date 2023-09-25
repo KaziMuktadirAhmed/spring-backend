@@ -39,17 +39,17 @@ To run Mr. Bin locally on your machine, follow these steps:
 1. Clone the project repository:
 
    ```bash
-   git clone https://github.com/jaf107/mr-bin.git
+   git clone https://github.com/KaziMuktadirAhmed/spring-backend.git
    ```
 2. Install the required dependencies:
   #Install dependencies using Maven
 
     ```bash
-      mvn install
+   mvn install
     ```
 3. Start the Spring Boot application:
    ```bash
-      mvn spring-boot:run
+   mvn spring-boot:run
     ```
 The backend server should now be running locally on http://localhost:5000.
 
