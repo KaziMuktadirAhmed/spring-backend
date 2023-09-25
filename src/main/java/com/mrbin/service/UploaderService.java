@@ -1,4 +1,4 @@
-package com.bezkoder.spring.jwt.mongodb.service;
+package com.mrbin.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
