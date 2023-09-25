@@ -75,7 +75,7 @@ public class WebSecurityConfig {
                 .permitAll()
                 .requestMatchers("/api/v1/password/reset/**")
                 .permitAll()
-                .requestMatchers("/api/v1/product/**")
+                .requestMatchers("/api/v1/products/**")
                 .permitAll()
                 .requestMatchers("/api/v1/recyclers/**")
                 .permitAll()

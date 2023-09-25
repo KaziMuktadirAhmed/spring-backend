@@ -22,7 +22,9 @@ public class ProductController {
 
     @PostMapping(value = "product/new")
     public ResponseEntity<Product> addProduct(@RequestBody Product product){
+        System.out.println(product instanceof Product);
         Product createdProduct = productService.createProduct((product));
+        System.out.println(createdProduct);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
