@@ -149,7 +149,7 @@ public class AuthController {
 			JSONObject jo = (JSONObject) new JSONParser().parse(jwtPayloadStr);
 			String username = (String) jo.get("sub");
 
-			System.out.println("Username: " + username);
+//			System.out.println("Username: " + username);
 
 			if (userRepository.existsByUsername(username)) {
 				Optional<User> currentUser = userRepository.findByUsername(username);
