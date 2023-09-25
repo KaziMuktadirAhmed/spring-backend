@@ -1,5 +1,6 @@
 package com.mrbin.controllers;
 
+import com.mrbin.payload.response.FileUploaderResponse;
 import com.mrbin.service.UploaderService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ public class UploadFileController {
     @Autowired
     private UploaderService uploaderService;
 
-    @GetMapping("/test-upload")
-    public ResponseEntity<String> testUpload() {
-        String signStr =  uploaderService.getUploadUrl();
-        return new ResponseEntity(signStr, HttpStatus.OK);
+    @GetMapping("/upload")
+    public ResponseEntity<FileUploaderResponse> sendFileUploadPermission() {
+        FileUploaderResponse response =  uploaderService.getUploadSignature();
+        return new ResponseEntity<> (response, HttpStatus.OK);
     }
 }
