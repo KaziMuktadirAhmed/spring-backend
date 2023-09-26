@@ -1,13 +1,16 @@
 package com.mrbin.payload.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UpdateImageUrlRequest {
     @JsonProperty("collection")
     private String collection;
@@ -15,16 +18,16 @@ public class UpdateImageUrlRequest {
     @JsonProperty("query-param")
     private String queryParam;
 
-    @JsonProperty("public_id")
+    @JsonProperty("public-id")
     private String publicId;
 
-    @JsonProperty("image_url")
+    @JsonProperty("image-url")
     private String imageUrl;
 
-    @JsonProperty("public_id_list")
+    @JsonProperty("public-id-list")
     private List<String> publicIdLIst;
 
-    @JsonProperty("image_url_list")
+    @JsonProperty("image-url-list")
     private List<String> imageUrlList;
 
     public UpdateImageUrlRequest(String collection, String publicId, String imageUrl) {
