@@ -1,14 +1,22 @@
 package com.mrbin.service;
 
 import com.cloudinary.Cloudinary;
+import com.mrbin.models.Product;
+import com.mrbin.models.User;
 import com.mrbin.payload.response.FileUploaderResponse;
+import com.mrbin.repository.ProductRepository;
+import com.mrbin.repository.UserRepository;
+import com.mrbin.utils.Avatar;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
-@Component
+@Service
 public class UploaderService {
 
     @Value("${Mr.Bin.Cloudinary.Api.Secrate}")
@@ -20,6 +28,12 @@ public class UploaderService {
     @Value("${Mr.Bin.Cloudinary.Api.CloudName}")
     private String cloudinaryCloudName;
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     public FileUploaderResponse getUploadSignature() {
         Cloudinary cloudinary = new Cloudinary(Map.of(
@@ -37,5 +51,23 @@ public class UploaderService {
         String cloudSign = cloudinary.apiSignRequest(params, cloudinaryApiSecrete);
 
         return new FileUploaderResponse(timestamp, cloudSign);
+    }
+
+    public int updateUserImage(String username, String imagePublicId, String imageUrl) {
+        Optional<User> userQuery = userRepository.findByUsername(username);
+
+        if(userQuery.isPresent()) {
+            User user = userQuery.get();
+            user.setAvatar(new Avatar(imagePublicId, imageUrl));
+            userRepository.save(user);
+
+            return 200;
+        }
+
+        return 404;
+    }
+
+    public void updateProductImage(String productId) {
+        Optional<Product> productQuery = productRepository.findById(productId);
     }
 }

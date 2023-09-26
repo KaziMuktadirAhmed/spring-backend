@@ -8,6 +8,9 @@ import lombok.Setter;
 
 public class SignupRequest {
     @NotBlank
+    private String name;
+
+    @NotBlank
     @Size(min = 3, max = 20)
     private String username;
  
@@ -58,5 +61,25 @@ public class SignupRequest {
 
     public void setRole(Set<String> roles) {
       this.roles = roles;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
