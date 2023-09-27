@@ -26,7 +26,7 @@ public class UploadFileController {
     @PostMapping("/update-url")
     public ResponseEntity updateImgUrl(@RequestBody UpdateImageUrlRequest updateImageUrlRequest) {
         int status = 500;
-        if (updateImageUrlRequest.getCollection().equals("user")) {
+        if (updateImageUrlRequest.getCollection().equalsIgnoreCase("user")) {
             status = uploaderService.updateUserImage(updateImageUrlRequest.getQueryParam(), updateImageUrlRequest.getImageUrl(), updateImageUrlRequest.getPublicId());
 
             if(status == 200)       return ResponseEntity.status(status).body(new MessageResponse("Successfully updated user avatar !!"));

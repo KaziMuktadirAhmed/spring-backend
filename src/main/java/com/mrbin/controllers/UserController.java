@@ -25,4 +25,6 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUsers(){
         return new ResponseEntity<List<User>>(userService.getAllUsers(), HttpStatus.OK) ;
     }
+
+
 }
