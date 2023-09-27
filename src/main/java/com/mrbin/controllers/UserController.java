@@ -20,9 +20,5 @@ public class UserController {
     UserService userService;
 
     // For admin Dashboard
-    @GetMapping(value = "admin/users")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User>> getAllUsers(){
-        return new ResponseEntity<List<User>>(userService.getAllUsers(), HttpStatus.OK) ;
-    }
+
 }
