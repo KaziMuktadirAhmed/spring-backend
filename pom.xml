@@ -9,12 +9,11 @@
 		<version>3.1.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bezkoder</groupId>
-	<artifactId>spring-boot-security-jwt-mongodb</artifactId>
+	<groupId>com.mrbin</groupId>
+	<artifactId>Mr-Bin-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-security-jwt-mongodb</name>
-	<description>Demo project for Spring Boot Auth with Spring Security,
-		JWT, MongoDB</description>
+	<name>Mr-Bin-backend</name>
+	<description>Spring backend for Mr.Bin: Commodities marketplace</description>
 
 	<properties>
 		<java.version>17</java.version>
