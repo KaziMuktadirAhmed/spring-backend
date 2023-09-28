@@ -34,6 +34,11 @@ public class UploadFileController {
             else                    return ResponseEntity.status(status).body(new MessageResponse("Error while updating user avatar !!"));
         }
         else if (updateImageUrlRequest.getCollection().equals("product")) {
+            status = uploaderService.updateProductImage(updateImageUrlRequest.getQueryParam(), updateImageUrlRequest.getImageList());
+
+            if(status == 200)       return ResponseEntity.status(status).body(new MessageResponse("Successfully updated product image !!"));
+            else if (status == 404) return ResponseEntity.status(status).body(new MessageResponse("Product not found !!"));
+            else                    return ResponseEntity.status(status).body(new MessageResponse("Error while updating product image !!"));
         }
         return ResponseEntity.status(status).body(new MessageResponse("Internal server Error !!"));
     }
