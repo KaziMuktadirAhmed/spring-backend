@@ -16,6 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderListingRequest {
+    @JsonProperty("id")
+    public String orderId;
 
     @JsonProperty("product")
     public Product product;
@@ -26,8 +28,16 @@ public class OrderListingRequest {
     @JsonProperty("seller")
     public String sellerUserName;
 
+    @JsonProperty("status")
+    public EOrderStatus status;
+
     public OrderListingRequest(Product product, String buyerUserName) {
         this.product = product;
         this.buyerUserName = buyerUserName;
+    }
+
+    public OrderListingRequest(String orderId, EOrderStatus status) {
+        this.orderId = orderId;
+        this.status = status;
     }
 }
