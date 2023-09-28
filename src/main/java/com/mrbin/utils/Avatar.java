@@ -1,13 +1,16 @@
 package com.mrbin.utils;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Avatar {
+    @JsonProperty("publicId")
     private String publicId;
+    @JsonProperty("url")
     private String url;
 }
