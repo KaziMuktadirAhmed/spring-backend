@@ -2,6 +2,7 @@ package com.mrbin.payload.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.mrbin.utils.Avatar;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -24,11 +25,8 @@ public class UpdateImageUrlRequest {
     @JsonProperty("image-url")
     private String imageUrl;
 
-    @JsonProperty("public-id-list")
-    private List<String> publicIdLIst;
-
-    @JsonProperty("image-url-list")
-    private List<String> imageUrlList;
+    @JsonProperty("image-list")
+    private List<Avatar> imageList;
 
     public UpdateImageUrlRequest(String collection, String publicId, String imageUrl) {
         this.collection = collection;
@@ -36,9 +34,8 @@ public class UpdateImageUrlRequest {
         this.imageUrl = imageUrl;
     }
 
-    public UpdateImageUrlRequest(String collection, List<String> publicIdLIst, List<String> imageUrlList) {
+    public UpdateImageUrlRequest(String collection, List<Avatar> imageList) {
         this.collection = collection;
-        this.publicIdLIst = publicIdLIst;
-        this.imageUrlList = imageUrlList;
+        this.imageList = imageList;
     }
 }

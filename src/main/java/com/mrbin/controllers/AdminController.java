@@ -18,9 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/admin/")
-
 public class AdminController {
-
     @Autowired
     UserService userService;
 

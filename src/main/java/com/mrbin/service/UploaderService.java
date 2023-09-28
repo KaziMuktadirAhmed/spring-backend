@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -29,9 +30,8 @@ public class UploaderService {
     private String cloudinaryCloudName;
 
     @Autowired
-    private MongoTemplate mongoTemplate;
-    @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -67,7 +67,17 @@ public class UploaderService {
         return 404;
     }
 
-    public void updateProductImage(String productId) {
+    public int updateProductImage(String productId, List<Avatar> images) {
         Optional<Product> productQuery = productRepository.findById(productId);
+
+        if(productQuery.isPresent()) {
+            Product product = productQuery.get();
+            product.setImages(images);
+            productRepository.save(product);
+
+            return 200;
+        }
+
+        return 404;
     }
 }
