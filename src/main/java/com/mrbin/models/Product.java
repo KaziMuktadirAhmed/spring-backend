@@ -26,6 +26,7 @@ public class Product {
     private String id;
 
     @JsonProperty("name")
+    @Field(name = "name")
     private String name;
 
     @JsonProperty("category")
