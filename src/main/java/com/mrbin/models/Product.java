@@ -4,6 +4,7 @@ import com.mrbin.utils.Avatar;
 import com.mrbin.utils.Comment;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,6 +19,7 @@ import java.util.List;
 @Document(collection = "products")
 public class Product {
     @Id
+    @Getter
     private String id;
 
     @JsonProperty("name")
