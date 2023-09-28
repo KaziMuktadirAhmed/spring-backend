@@ -45,10 +45,6 @@ public class OrderController {
         return  orderService.updateOrder(orderListingRequest.getOrderId(), orderListingRequest.getStatus());
     }
 
-    public ResponseEntity approveOrder() {
-        return ResponseEntity.ok("Approve order route");
-    }
-
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Order>> getAllOrder() {

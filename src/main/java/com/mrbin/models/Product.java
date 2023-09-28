@@ -23,7 +23,7 @@ import java.util.List;
 public class Product {
     @Id
     @Getter
-    private String id;
+    public String id;
 
     @JsonProperty("name")
     @Field(name = "name")

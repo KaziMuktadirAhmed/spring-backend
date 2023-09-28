@@ -18,7 +18,7 @@ import java.util.Date;
 @Document(collection = "orders")
 public class Order {
     @Id
-    public String Id;
+    public String id;
 
     @JsonProperty("product")
     @Field(name = "product")
