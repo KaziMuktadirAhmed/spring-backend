@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @PreAuthorize("hasRole('USER')")
@@ -22,9 +23,9 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/new")
-    public ResponseEntity<Order> placeOrder(@RequestBody OrderListingRequest orderListingRequest) {
-        Order newOrderObject = orderService.createNewListing(orderListingRequest.getProduct(), orderListingRequest.getBuyerUserName());
-        return new ResponseEntity<>(newOrderObject, HttpStatus.OK);
+    public ResponseEntity placeOrder(@RequestBody OrderListingRequest orderListingRequest) {
+        ResponseEntity response = orderService.createNewListing(orderListingRequest.getProduct(), orderListingRequest.getBuyerUserName());
+        return response;
     }
 
     @GetMapping("/get/{id}")
@@ -39,7 +40,7 @@ public class OrderController {
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity getAllOrder() {
-        return  ResponseEntity.ok("Get all order route");
+    public ResponseEntity<List<Order>> getAllOrder() {
+        return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
     }
 }

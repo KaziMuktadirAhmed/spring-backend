@@ -44,9 +44,10 @@ public class Order {
     @Field(name = "status")
     public EOrderStatus orderStatus;
 
-    public Order(Product product, String buyerUserName, Date createdAt, EOrderStatus orderStatus) {
+    public Order(Product product, String buyerUserName, String sellerUserName, Date createdAt, EOrderStatus orderStatus) {
         this.product = product;
         this.buyerUserName = buyerUserName;
+        this.sellerUserName = sellerUserName;
         this.createdAt = createdAt;
         this.orderStatus = orderStatus;
     }
