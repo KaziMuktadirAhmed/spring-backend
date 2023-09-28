@@ -15,16 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/")
 public class UserController {
-
     @Autowired
     UserService userService;
-
-    // For admin Dashboard
-    @GetMapping(value = "admin/users")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User>> getAllUsers(){
-        return new ResponseEntity<List<User>>(userService.getAllUsers(), HttpStatus.OK) ;
-    }
-
-
 }
