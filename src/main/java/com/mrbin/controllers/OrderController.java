@@ -21,27 +21,31 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/new")
-    public ResponseEntity placeOrder(@RequestBody OrderListingRequest orderListingRequest) {
-        ResponseEntity response = orderService.createNewListing(orderListingRequest.getProduct(), orderListingRequest.getBuyerUserName());
-        return response;
+    public ResponseEntity<?> placeOrder(@RequestBody OrderListingRequest orderListingRequest) {
+        return orderService.createNewListing(orderListingRequest.getProduct(), orderListingRequest.getBuyerUserName());
     }
 
     @GetMapping("/get/sell-order/{sellerUserName}")
-    public ResponseEntity getSellOrderList(@PathVariable("sellerUserName") String sellerUserName) {
+    public ResponseEntity<?> getSellOrderList(@PathVariable("sellerUserName") String sellerUserName) {
         List<Order> orders = orderService.getAllListingForASeller(sellerUserName);
         if(!orders.isEmpty()) return new ResponseEntity<List<Order>>(orders, HttpStatus.OK);
         else return new ResponseEntity<MessageResponse>(new MessageResponse("No Order request found"), HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/get/buy-order/{buyerUserName}")
-    public ResponseEntity getBuyOrderList(@PathVariable("buyerUserName") String buyerUserName) {
+    public ResponseEntity<?> getBuyOrderList(@PathVariable("buyerUserName") String buyerUserName) {
         List<Order> orders = orderService.getAllListingForABuyer(buyerUserName);
         if(!orders.isEmpty()) return new ResponseEntity<List<Order>>(orders, HttpStatus.OK);
         else return new ResponseEntity<MessageResponse>(new MessageResponse("No Order request found"), HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/get-single/{orderId}")
+    public ResponseEntity<?> getSingleOrder(@PathVariable("orderId") String orderId) {
+        return orderService.getSingleOrder(orderId);
+    }
+
     @PutMapping("/update/status")
-    public ResponseEntity updateOrderStatus(@RequestBody OrderListingRequest orderListingRequest) {
+    public ResponseEntity<?> updateOrderStatus(@RequestBody OrderListingRequest orderListingRequest) {
         return  orderService.updateOrder(orderListingRequest.getOrderId(), orderListingRequest.getStatus());
     }
 

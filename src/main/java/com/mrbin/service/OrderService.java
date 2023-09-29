@@ -28,11 +28,11 @@ public class OrderService {
     @Autowired
     private ProductRepository productRepository;
 
-    public ResponseEntity createNewListing(Product product, String buyerUserName) {
+    public ResponseEntity<?> createNewListing(Product product, String buyerUserName) {
         Optional<User> seller = userRepository.findById(product.getUserId());
         if(seller.isPresent()) {
             Order issedOrder = orderRepository.save(new Order(product, buyerUserName, seller.get().getUsername(), new Date(), EOrderStatus.PENDING));
-            return new ResponseEntity(issedOrder, HttpStatus.OK);
+            return new ResponseEntity<>(issedOrder, HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(new MessageResponse("Seller not found"), HttpStatus.NOT_FOUND);
@@ -52,7 +52,7 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public ResponseEntity updateOrder(String orderId, EOrderStatus status) {
+    public ResponseEntity<?> updateOrder(String orderId, EOrderStatus status) {
         Optional<Order> orderQuery = orderRepository.findById(orderId);
         if (orderQuery.isPresent()) {
             Order order = orderQuery.get();
@@ -81,6 +81,15 @@ public class OrderService {
                     return new ResponseEntity<>(new MessageResponse("Order " + orderId + " has been successfully completed"), HttpStatus.OK);
                 }
             }
+        }
+        return new ResponseEntity<>(new MessageResponse("Order not found"), HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<?> getSingleOrder(String orderId) {
+        Optional<Order> orderQuery = orderRepository.findById(orderId);
+        if(orderQuery.isPresent()) {
+            Order order = orderQuery.get();
+            return new ResponseEntity<>(order, HttpStatus.OK);
         }
         return new ResponseEntity<>(new MessageResponse("Order not found"), HttpStatus.NOT_FOUND);
     }
