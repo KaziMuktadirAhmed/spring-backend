@@ -2,6 +2,7 @@ package com.mrbin.controllers;
 
 import com.mrbin.models.Product;
 import com.mrbin.models.Recycler;
+import com.mrbin.payload.response.MessageResponse;
 import com.mrbin.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +31,9 @@ public class ProductController {
 
     @GetMapping(value = "product/{id}")
     public ResponseEntity<Product> getSingleProduct(@PathVariable String id){
-        Optional<Product> product = productService.getProduct(id);
-        return product.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<Product> productQuery = productService.getProduct(id);
+        if(productQuery.isPresent()) return new ResponseEntity<?>(productQuery.get(), HttpStatus.OK);
+        else return new ResponseEntity<?>(new MessageResponse("Product not found"), HttpStatus.NOT_FOUND);
     }
 
 }

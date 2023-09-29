@@ -48,6 +48,4 @@ public class OrderController {
     public ResponseEntity<?> updateOrderStatus(@RequestBody OrderListingRequest orderListingRequest) {
         return  orderService.updateOrder(orderListingRequest.getOrderId(), orderListingRequest.getStatus());
     }
-
-
 }

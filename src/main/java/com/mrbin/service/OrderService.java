@@ -71,11 +71,14 @@ public class OrderService {
                 if(buyerQuery.isPresent()) {
                     String buyerId = buyerQuery.get().getId();
                     product.setBuyerId(buyerId);
-                    productRepository.save(product);
 
                     Date resolvedAt = new Date();
                     order.setResolvedAt(resolvedAt);
+                    product.setDateOfPurchase(String.valueOf(resolvedAt));
+
                     order.setOrderStatus(status);
+
+                    productRepository.save(product);
                     orderRepository.save(order);
 
                     return new ResponseEntity<>(new MessageResponse("Order " + orderId + " has been successfully completed"), HttpStatus.OK);
