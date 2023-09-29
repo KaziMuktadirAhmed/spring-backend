@@ -65,7 +65,7 @@ public class OrderService {
                 orderRepository.save(order);
 
                 return new ResponseEntity<>(new MessageResponse("Order " + orderId + " has been rejected"), HttpStatus.OK);
-            } else {
+            } else if (status == EOrderStatus.COMPLETED) {
                 Product product = order.getProduct();
                 Optional<User> buyerQuery = userRepository.findByUsername(order.buyerUserName);
                 if(buyerQuery.isPresent()) {
