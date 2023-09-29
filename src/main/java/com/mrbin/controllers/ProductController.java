@@ -30,10 +30,10 @@ public class ProductController {
     }
 
     @GetMapping(value = "product/{id}")
-    public ResponseEntity<Product> getSingleProduct(@PathVariable String id){
+    public ResponseEntity<?> getSingleProduct(@PathVariable String id){
         Optional<Product> productQuery = productService.getProduct(id);
-        if(productQuery.isPresent()) return new ResponseEntity<?>(productQuery.get(), HttpStatus.OK);
-        else return new ResponseEntity<?>(new MessageResponse("Product not found"), HttpStatus.NOT_FOUND);
+        if(productQuery.isPresent()) return new ResponseEntity<Product>(productQuery.get(), HttpStatus.OK);
+        else return new ResponseEntity<MessageResponse>(new MessageResponse("Product not found"), HttpStatus.NOT_FOUND);
     }
 
 }
