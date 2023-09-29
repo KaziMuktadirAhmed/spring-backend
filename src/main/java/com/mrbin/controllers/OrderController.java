@@ -49,9 +49,5 @@ public class OrderController {
         return  orderService.updateOrder(orderListingRequest.getOrderId(), orderListingRequest.getStatus());
     }
 
-    @GetMapping("/all")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Order>> getAllOrder() {
-        return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
-    }
+
 }

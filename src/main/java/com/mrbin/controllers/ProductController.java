@@ -1,6 +1,7 @@
 package com.mrbin.controllers;
 
 import com.mrbin.models.Product;
+import com.mrbin.models.Recycler;
 import com.mrbin.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/api/v1/")
 public class ProductController {
     @Autowired
     ProductService productService;
@@ -24,6 +26,13 @@ public class ProductController {
     public ResponseEntity<Product> addProduct(@RequestBody Product product){
         Product createdProduct = productService.createProduct(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "product/{id}")
+    public ResponseEntity<Product> getSingleProduct(@PathVariable String id){
+        Optional<Product> product = productService.getProduct(id);
+        return product.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

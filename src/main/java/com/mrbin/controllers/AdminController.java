@@ -1,8 +1,10 @@
 package com.mrbin.controllers;
 
+import com.mrbin.models.Order;
 import com.mrbin.models.Organization;
 import com.mrbin.models.Recycler;
 import com.mrbin.models.User;
+import com.mrbin.service.OrderService;
 import com.mrbin.service.OrganizationService;
 import com.mrbin.service.RecyclerService;
 import com.mrbin.service.UserService;
@@ -28,6 +30,9 @@ public class AdminController {
     @Autowired
     OrganizationService organizationService;
 
+    @Autowired
+    OrderService orderService;
+
     @GetMapping(value = "users")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> getAllUsers(){
@@ -43,5 +48,11 @@ public class AdminController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Organization>> getAllOrganizations(){
         return new ResponseEntity<List<Organization>>(organizationService.getAllOrganizations(), HttpStatus.OK) ;
+    }
+
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<Order>> getAllOrder() {
+        return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
     }
 }

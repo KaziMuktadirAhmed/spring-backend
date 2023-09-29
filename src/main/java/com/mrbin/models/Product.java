@@ -58,7 +58,7 @@ public class Product {
     private String buyerId; // Assuming this is the buyer ID as a string
 
     @JsonProperty("productType")
-    @Field(name = "product_type")
+    @Field(name = "productType")
     private String productType = "marketplace";
 
     @JsonProperty("description")
@@ -66,12 +66,16 @@ public class Product {
     private String description;
 
     @JsonProperty("dateOfPurchase")
-    @Field(name = "date_of_purchase")
+    @Field(name = "dateOfPurchase")
     private String dateOfPurchase;
 
     @JsonProperty("purchasePrice")
-    @Field(name = "purchase_price")
+    @Field(name = "purchasePrice")
     private Double purchasePrice;
+
+    @JsonProperty("askingPrice")
+    @Field(name = "askingPrice")
+    private Double askingPrice;
 
     @JsonProperty("comments")
     @Field(name = "comments")
@@ -105,7 +109,7 @@ public class Product {
                 '}';
     }
 
-    public Product(String name, String category, String address, String condition, String userId, String productType, String description, String dateOfPurchase, Double purchasePrice) {
+    public Product(String name, String category, String address, String condition, String userId, String productType, String description, String dateOfPurchase, Double purchasePrice, Double askingPrice) {
         this.name = name;
         this.category = category;
         this.address = address;
@@ -115,9 +119,10 @@ public class Product {
         this.description = description;
         this.dateOfPurchase = dateOfPurchase;
         this.purchasePrice = purchasePrice;
+        this.askingPrice = askingPrice;
     }
 
-    public Product(String name, String category, String address, Integer quantity, String condition, String userId, String productType, String description, String dateOfPurchase, Double purchasePrice) {
+    public Product(String name, String category, String address, Integer quantity, String condition, String userId, String productType, String description, String dateOfPurchase, Double purchasePrice, Double askingPrice) {
         this.name = name;
         this.category = category;
         this.address = address;
@@ -128,5 +133,6 @@ public class Product {
         this.description = description;
         this.dateOfPurchase = dateOfPurchase;
         this.purchasePrice = purchasePrice;
+        this.askingPrice = askingPrice;
     }
 }

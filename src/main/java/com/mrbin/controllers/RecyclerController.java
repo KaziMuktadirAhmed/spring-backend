@@ -31,8 +31,8 @@ public class RecyclerController {
     // Retrieve a product by ID
     @GetMapping("/recycler/{id}")
     public ResponseEntity<Recycler> getRecyclerById(@PathVariable String id) {
-        Optional<Recycler> product = recyclerService.getRecyclerById(id);
-        return product.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+        Optional<Recycler> recycler = recyclerService.getRecyclerById(id);
+        return recycler.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
