@@ -50,7 +50,7 @@ public class AdminController {
         return new ResponseEntity<List<Organization>>(organizationService.getAllOrganizations(), HttpStatus.OK) ;
     }
 
-    @GetMapping("/all")
+    @GetMapping("orders")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Order>> getAllOrder() {
         return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
