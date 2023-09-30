@@ -26,6 +26,10 @@ public class OrganizationService {
         return organizationRepository.findAll();
     }
 
+    public List<Organization> getAllOrganizationRequest() {
+        return organizationRepository.findAllByAccountState(EAccountState.VERIFICATION_PENDING);
+    }
+
     public boolean updateRecyclerPrivilegeStatus(String id, EAccountState state) {
         Optional<Organization> organizationQuery = organizationRepository.findById(id);
 

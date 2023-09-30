@@ -22,9 +22,9 @@ public class Organization {
     @Field(name = "name")
     private String name;
 
-    @JsonProperty("type")
-    @Field(name = "type")
-    private String type;
+    @JsonProperty("organization")
+    @Field(name = "organization")
+    private String organization;
 
     @JsonProperty("location")
     @Field(name = "location")
@@ -43,10 +43,10 @@ public class Organization {
     @Field(name = "verification")
     private EAccountState accountState = EAccountState.VERIFICATION_PENDING;
 
-    public Organization(String id, String name, String type, String location, String phone) {
+    public Organization(String id, String name, String organization, String location, String phone) {
         this.id = id;
         this.name = name;
-        this.type = type;
+        this.organization = organization;
         this.location = location;
         this.phone = phone;
     }
@@ -56,7 +56,7 @@ public class Organization {
         return "Organization{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
+                ", type='" + organization + '\'' +
                 ", location='" + location + '\'' +
                 ", avatar=" + avatar +
                 ", phone='" + phone + '\'' +

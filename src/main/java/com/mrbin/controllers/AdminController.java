@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @PreAuthorize("hasAnyRole('ADMIN')")
@@ -60,7 +62,14 @@ public class AdminController {
     @GetMapping("/get-all/privilege-request")
     public ResponseEntity<?> getAllAccountPrivilegeRequest() {
         List<Recycler> recyclerList = recyclerService.getAllRecyclerRequest();
-        return new ResponseEntity<>(recyclerList, HttpStatus.OK);
+        List<Organization> organizationList = organizationService.getAllOrganizationRequest();
+
+        List<?> responseList = Stream.concat(recyclerList.stream(), organizationList.stream()).toList();
+
+        if(!responseList.isEmpty()) {
+            return new ResponseEntity<>(responseList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new MessageResponse("No request found"), HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/update/privilege-request")
