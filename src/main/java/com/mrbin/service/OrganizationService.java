@@ -32,9 +32,12 @@ public class OrganizationService {
         if(organizationQuery.isPresent()) {
             Organization organization = organizationQuery.get();
             organization.setAccountState(state);
-            
-            String organizationUserName = organization.getName();
-            boolean addRoleOperation = userService.addRole(organizationUserName, ERole.ROLE_ORGANIZATION);
+
+            boolean addRoleOperation = false;
+            if(state == EAccountState.VERIFIED) {
+                String organizationUserName = organization.getName();
+                addRoleOperation = userService.addRole(organizationUserName, ERole.ROLE_ORGANIZATION);
+            }
 
             if(addRoleOperation) {
                 organizationRepository.save(organization);

@@ -29,9 +29,6 @@ public class Recycler {
     @Field(name = "location")
     private String location;
 
-//    @Field(name = "avatar")
-//    private Avatar avatar;
-
     @JsonProperty("phone")
     @Field(name = "phone")
     private String phone;

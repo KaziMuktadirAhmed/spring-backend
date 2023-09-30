@@ -57,7 +57,7 @@ public class AdminController {
         return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
     }
 
-    @PostMapping("/update/privilege-request")
+    @PutMapping("/update/privilege-request")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateAccountPrivilegeState(@RequestBody UpdateAccountPrivilegeRequest updateAccountPrivilegeRequest) {
         if(updateAccountPrivilegeRequest.getPrivilegeType().equalsIgnoreCase("recycler")){

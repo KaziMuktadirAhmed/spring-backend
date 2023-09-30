@@ -33,8 +33,11 @@ public class RecyclerService {
             Recycler recycler = recyclerQuery.get();
             recycler.setAccountState(state);
 
-            String recyclerUserName = recycler.getName();
-            boolean addRoleOperation = userService.addRole(recyclerUserName, ERole.ROLE_RECYCLER);
+            boolean addRoleOperation = false;
+            if(state == EAccountState.VERIFIED) {
+                String recyclerUserName = recycler.getName();
+                addRoleOperation = userService.addRole(recyclerUserName, ERole.ROLE_RECYCLER);
+            }
 
             if(addRoleOperation) {
                 recyclerRepository.save(recycler);
