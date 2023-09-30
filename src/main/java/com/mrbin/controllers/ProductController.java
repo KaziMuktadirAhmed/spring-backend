@@ -36,4 +36,8 @@ public class ProductController {
         else return new ResponseEntity<MessageResponse>(new MessageResponse("Product not found"), HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping()
+    public ResponseEntity<?> getAllProductsForAUser() {
+        return new ResponseEntity<>(new MessageResponse("My products route"), HttpStatus.OK);
+    }
 }
