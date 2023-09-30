@@ -15,18 +15,18 @@ public class RoleService {
     private RoleRepository roleRepository;
 
     public void initializeRoles() {
-        createRoleIfNotExists("ROLE_GUEST");
-        createRoleIfNotExists("ROLE_USER");
-        createRoleIfNotExists("ROLE_ADMIN");
-        createRoleIfNotExists("ROLE_MODERATOR");
+        createRoleIfNotExists(ERole.ROLE_GUEST);
+        createRoleIfNotExists(ERole.ROLE_USER);
+        createRoleIfNotExists(ERole.ROLE_MODERATOR);
+        createRoleIfNotExists(ERole.ROLE_ADMIN);
     }
 
-    private void createRoleIfNotExists(String roleName) {
-        Optional<Role> roleQuery = roleRepository.findByName(ERole.valueOf(roleName));
+    private void createRoleIfNotExists(ERole role) {
+        Optional<Role> roleQuery = roleRepository.findByName(role);
         if (roleQuery.isEmpty()) {
-            Role role = new Role();
-            role.setName(ERole.valueOf(roleName));
-            roleRepository.save(role);
+            Role newRole = new Role();
+            newRole.setName(role);
+            roleRepository.save(newRole);
         }
     }
 }
