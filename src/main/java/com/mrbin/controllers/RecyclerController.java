@@ -22,6 +22,7 @@ public class RecyclerController {
         return new ResponseEntity<List<Recycler>>(recyclerService.getAllRecyclers(), HttpStatus.OK) ;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @PostMapping(value = "recycler/new")
     public ResponseEntity<Recycler> addRecycler(@RequestBody Recycler recycler){
         Recycler createdRecycler = recyclerService.createRecycler((recycler));
@@ -36,6 +37,7 @@ public class RecyclerController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/recycler/{id}")
     public ResponseEntity<String> deleteRecyclerById(@PathVariable String id) {
         Optional<Recycler> existingRecycler = recyclerService.getRecyclerById(id);
