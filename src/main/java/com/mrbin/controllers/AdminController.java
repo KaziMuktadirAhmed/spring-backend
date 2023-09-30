@@ -57,6 +57,12 @@ public class AdminController {
         return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
     }
 
+    @GetMapping("/get-all/privilege-request")
+    public ResponseEntity<?> getAllAccountPrivilegeRequest() {
+        List<Recycler> recyclerList = recyclerService.getAllRecyclerRequest();
+        return new ResponseEntity<>(recyclerList, HttpStatus.OK);
+    }
+
     @PutMapping("/update/privilege-request")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateAccountPrivilegeState(@RequestBody UpdateAccountPrivilegeRequest updateAccountPrivilegeRequest) {

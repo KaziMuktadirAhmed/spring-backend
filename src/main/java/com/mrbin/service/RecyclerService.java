@@ -26,6 +26,10 @@ public class RecyclerService {
         return recyclerRepository.findAll();
     }
 
+    public List<Recycler> getAllRecyclerRequest(){
+        return recyclerRepository.findAllByAccountState(EAccountState.VERIFICATION_PENDING);
+    }
+
     public boolean updateRecyclerPrivilegeStatus(String id, EAccountState state) {
         Optional<Recycler> recyclerQuery = recyclerRepository.findById(id);
 
