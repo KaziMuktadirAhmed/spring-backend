@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("product/{username}/all-products")
+    @GetMapping("product/{username}/all-product")
     public ResponseEntity<?> getAllProductsForAUser(@PathVariable("username") String username) {
         return productService.getAllProductsForAUser(username);
     }
