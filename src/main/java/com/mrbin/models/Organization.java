@@ -40,7 +40,6 @@ public class Organization {
 
     @Getter
     @Setter
-    @JsonProperty("verification")
     @Field(name = "verification")
     private EAccountState accountState = EAccountState.VERIFICATION_PENDING;
 
