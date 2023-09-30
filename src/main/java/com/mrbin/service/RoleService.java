@@ -19,6 +19,8 @@ public class RoleService {
         createRoleIfNotExists(ERole.ROLE_USER);
         createRoleIfNotExists(ERole.ROLE_MODERATOR);
         createRoleIfNotExists(ERole.ROLE_ADMIN);
+        createRoleIfNotExists(ERole.ROLE_RECYCLER);
+        createRoleIfNotExists(ERole.ROLE_ORGANIZATION);
     }
 
     private void createRoleIfNotExists(ERole role) {

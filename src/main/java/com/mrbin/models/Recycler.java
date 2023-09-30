@@ -17,6 +17,7 @@ public class Recycler {
     @Id
     private String id;
 
+    // name -> employee username
     @JsonProperty("name")
     @Field(name = "name")
     private String name;
