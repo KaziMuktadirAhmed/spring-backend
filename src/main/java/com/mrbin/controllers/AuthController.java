@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import com.mrbin.models.ERole;
+import com.mrbin.models.EStates.ERole;
 import com.mrbin.payload.request.LoginRequest;
 import com.mrbin.payload.request.SignupRequest;
 import com.mrbin.payload.response.JwtResponse;

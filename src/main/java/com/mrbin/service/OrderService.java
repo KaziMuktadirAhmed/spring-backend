@@ -1,6 +1,6 @@
 package com.mrbin.service;
 
-import com.mrbin.models.EOrderStatus;
+import com.mrbin.models.EStates.EOrderStatus;
 import com.mrbin.models.Order;
 import com.mrbin.models.Product;
 import com.mrbin.models.User;

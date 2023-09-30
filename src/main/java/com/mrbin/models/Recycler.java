@@ -1,9 +1,8 @@
 package com.mrbin.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.mrbin.models.EStates.EAccountState;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -36,6 +35,12 @@ public class Recycler {
     @JsonProperty("phone")
     @Field(name = "phone")
     private String phone;
+
+    @Getter
+    @Setter
+    @JsonProperty("verification")
+    @Field(name = "verification")
+    private EAccountState accountState = EAccountState.VERIFICATION_PENDING;
 
     public Recycler(String name, String company, String location, String phone) {
         this.name = name;

@@ -1,9 +1,12 @@
 package com.mrbin.models;
 
+import com.mrbin.models.EStates.EAccountState;
 import com.mrbin.utils.Avatar;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -34,6 +37,12 @@ public class Organization {
     @JsonProperty("phone")
     @Field(name = "phone")
     private String phone;
+
+    @Getter
+    @Setter
+    @JsonProperty("verification")
+    @Field(name = "verification")
+    private EAccountState accountState = EAccountState.VERIFICATION_PENDING;
 
     public Organization(String id, String name, String type, String location, String phone) {
         this.id = id;

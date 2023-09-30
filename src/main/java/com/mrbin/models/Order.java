@@ -1,6 +1,7 @@
 package com.mrbin.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mrbin.models.EStates.EOrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

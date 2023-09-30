@@ -1,6 +1,6 @@
 package com.mrbin.service;
 
-import com.mrbin.models.ERole;
+import com.mrbin.models.EStates.ERole;
 import com.mrbin.models.Role;
 import com.mrbin.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;

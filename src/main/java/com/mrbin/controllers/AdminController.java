@@ -4,6 +4,7 @@ import com.mrbin.models.Order;
 import com.mrbin.models.Organization;
 import com.mrbin.models.Recycler;
 import com.mrbin.models.User;
+import com.mrbin.payload.response.MessageResponse;
 import com.mrbin.service.OrderService;
 import com.mrbin.service.OrganizationService;
 import com.mrbin.service.RecyclerService;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,4 +58,28 @@ public class AdminController {
     public ResponseEntity<List<Order>> getAllOrder() {
         return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
     }
+
+    @PostMapping("/update/priviledge-request")
+    public ResponseEntity<?> updateAccountPrivilegeState() {
+        return new ResponseEntity<>(new MessageResponse("update priviledge state"), HttpStatus.OK);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
