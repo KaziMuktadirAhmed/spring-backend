@@ -7,6 +7,7 @@ import com.mrbin.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class ProductController {
         return new ResponseEntity<List<Product>>(productService.getAllProducts(), HttpStatus.OK) ;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @PostMapping(value = "product/new")
     public ResponseEntity<Product> addProduct(@RequestBody Product product){
         Product createdProduct = productService.createProduct(product);
@@ -36,8 +38,9 @@ public class ProductController {
         else return new ResponseEntity<MessageResponse>(new MessageResponse("Product not found"), HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping()
-    public ResponseEntity<?> getAllProductsForAUser() {
-        return new ResponseEntity<>(new MessageResponse("My products route"), HttpStatus.OK);
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("{username}/products")
+    public ResponseEntity<?> getAllProductsForAUser(@PathVariable("username") String username) {
+        return productService.getAllProductsForAUser(username);
     }
 }
