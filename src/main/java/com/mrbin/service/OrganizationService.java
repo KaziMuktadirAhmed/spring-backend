@@ -1,6 +1,9 @@
 package com.mrbin.service;
 
+import com.mrbin.models.EStates.EAccountState;
+import com.mrbin.models.EStates.ERole;
 import com.mrbin.models.Organization;
+import com.mrbin.models.Recycler;
 import com.mrbin.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +15,34 @@ import java.util.Optional;
 public class OrganizationService {
     @Autowired
     private OrganizationRepository organizationRepository;
+
+    @Autowired
+    private UserService userService;
+
     public Organization createOrganization(Organization organization) {
         return organizationRepository.save(organization);
     }
     public List<Organization> getAllOrganizations(){
         return organizationRepository.findAll();
+    }
+
+    public boolean updateRecyclerPrivilegeStatus(String id, EAccountState state) {
+        Optional<Organization> organizationQuery = organizationRepository.findById(id);
+
+        if(organizationQuery.isPresent()) {
+            Organization organization = organizationQuery.get();
+            organization.setAccountState(state);
+            
+            String organizationUserName = organization.getName();
+            boolean addRoleOperation = userService.addRole(organizationUserName, ERole.ROLE_ORGANIZATION);
+
+            if(addRoleOperation) {
+                organizationRepository.save(organization);
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
     public Optional<Organization> getOrganizationById(String id){

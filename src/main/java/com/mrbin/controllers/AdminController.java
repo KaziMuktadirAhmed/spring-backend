@@ -4,6 +4,7 @@ import com.mrbin.models.Order;
 import com.mrbin.models.Organization;
 import com.mrbin.models.Recycler;
 import com.mrbin.models.User;
+import com.mrbin.payload.request.UpdateAccountPrivilegeRequest;
 import com.mrbin.payload.response.MessageResponse;
 import com.mrbin.service.OrderService;
 import com.mrbin.service.OrganizationService;
@@ -13,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -59,9 +57,24 @@ public class AdminController {
         return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
     }
 
-    @PostMapping("/update/priviledge-request")
-    public ResponseEntity<?> updateAccountPrivilegeState() {
-        return new ResponseEntity<>(new MessageResponse("update priviledge state"), HttpStatus.OK);
+    @PostMapping("/update/privilege-request")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> updateAccountPrivilegeState(@RequestBody UpdateAccountPrivilegeRequest updateAccountPrivilegeRequest) {
+        if(updateAccountPrivilegeRequest.getPrivilegeType().equalsIgnoreCase("recycler")){
+            boolean operationStatus = recyclerService.updateRecyclerPrivilegeStatus(updateAccountPrivilegeRequest.getRequestId(), updateAccountPrivilegeRequest.getAccountState());
+
+            if(operationStatus) return new ResponseEntity<>(new MessageResponse("Successfully updated recycler status"), HttpStatus.OK);
+            else                return new ResponseEntity<>(new MessageResponse("Recycler or user not found"), HttpStatus.NOT_FOUND);
+        }
+
+        else if(updateAccountPrivilegeRequest.getPrivilegeType().equalsIgnoreCase("organization")) {
+            boolean operationStatus = organizationService.updateRecyclerPrivilegeStatus(updateAccountPrivilegeRequest.getRequestId(), updateAccountPrivilegeRequest.getAccountState());
+
+            if(operationStatus) return new ResponseEntity<>(new MessageResponse("Successfully updated organization status"), HttpStatus.OK);
+            else                return new ResponseEntity<>(new MessageResponse("Organization or user not found"), HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(new MessageResponse("Bad request"), HttpStatus.BAD_REQUEST);
     }
 }
 
