@@ -26,11 +26,13 @@ public class OrderController {
     }
 
     @PostMapping("/new/donation")
+    @PreAuthorize("hasRole('ORGANIZATION')")
     public ResponseEntity<?> placeDonationRequest(@RequestBody OrderListingRequest orderListingRequest) {
         return orderService.createNewDonationOrder(orderListingRequest.getProduct(), orderListingRequest.getBuyerUserName());
     }
 
     @PostMapping("/new/recycle")
+    @PreAuthorize("hasRole('RECYCLER')")
     public ResponseEntity<?> placeRecycleOrder(@RequestBody OrderListingRequest orderListingRequest) {
         return orderService.createNewRecycleOrder(orderListingRequest.getProduct(), orderListingRequest.getBuyerUserName(), orderListingRequest.getAskingPrice());
     }
