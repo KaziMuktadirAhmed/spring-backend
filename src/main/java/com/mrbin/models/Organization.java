@@ -56,7 +56,7 @@ public class Organization {
         return "Organization{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", type='" + organization + '\'' +
+                ", organization='" + organization + '\'' +
                 ", location='" + location + '\'' +
                 ", avatar=" + avatar +
                 ", phone='" + phone + '\'' +

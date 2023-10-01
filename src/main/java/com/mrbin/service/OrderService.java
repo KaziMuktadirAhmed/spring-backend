@@ -31,7 +31,29 @@ public class OrderService {
     public ResponseEntity<?> createNewListing(Product product, String buyerUserName) {
         Optional<User> seller = userRepository.findById(product.getUserId());
         if(seller.isPresent()) {
-            Order issedOrder = orderRepository.save(new Order(product, buyerUserName, seller.get().getUsername(), new Date(), EOrderStatus.PENDING));
+            Order issedOrder = orderRepository.save(new Order(product, buyerUserName, seller.get().getUsername(), new Date(), "marketplace", EOrderStatus.PENDING));
+            return new ResponseEntity<>(issedOrder, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(new MessageResponse("Seller not found"), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<?> createNewRecycleOrder(Product product, String buyerUserName, double askingPrice) {
+        Optional<User> seller = userRepository.findById(product.getUserId());
+        if(seller.isPresent()) {
+            Order issedOrder = orderRepository.save(new Order(product, buyerUserName, seller.get().getUsername(),"recycle", askingPrice, new Date(), EOrderStatus.PENDING));
+            return new ResponseEntity<>(issedOrder, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(new MessageResponse("Seller not found"), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<?> createNewDonationOrder(Product product, String buyerUserName) {
+        Optional<User> seller = userRepository.findById(product.getUserId());
+        if(seller.isPresent()) {
+            Order issedOrder = orderRepository.save(new Order(product, buyerUserName, seller.get().getUsername(), new Date(), "donation", EOrderStatus.PENDING));
             return new ResponseEntity<>(issedOrder, HttpStatus.OK);
         }
         else {

@@ -25,6 +25,16 @@ public class OrderController {
         return orderService.createNewListing(orderListingRequest.getProduct(), orderListingRequest.getBuyerUserName());
     }
 
+    @PostMapping("/new/donation")
+    public ResponseEntity<?> placeDonationRequest(@RequestBody OrderListingRequest orderListingRequest) {
+        return orderService.createNewDonationOrder(orderListingRequest.getProduct(), orderListingRequest.getBuyerUserName());
+    }
+
+    @PostMapping("/new/recycle")
+    public ResponseEntity<?> placeRecycleOrder(@RequestBody OrderListingRequest orderListingRequest) {
+        return orderService.createNewRecycleOrder(orderListingRequest.getProduct(), orderListingRequest.getBuyerUserName(), orderListingRequest.getAskingPrice());
+    }
+
     @GetMapping("/get/sell-order/{sellerUserName}")
     public ResponseEntity<?> getSellOrderList(@PathVariable("sellerUserName") String sellerUserName) {
         List<Order> orders = orderService.getAllListingForASeller(sellerUserName);

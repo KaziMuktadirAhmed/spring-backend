@@ -26,12 +26,21 @@ public class OrderListingRequest {
     @JsonProperty("seller")
     public String sellerUserName;
 
+    @JsonProperty("price")
+    public double askingPrice;
+
     @JsonProperty("status")
     public EOrderStatus status;
 
     public OrderListingRequest(Product product, String buyerUserName) {
         this.product = product;
         this.buyerUserName = buyerUserName;
+    }
+
+    public OrderListingRequest(Product product, String buyerUserName, double askingPrice) {
+        this.product = product;
+        this.buyerUserName = buyerUserName;
+        this.askingPrice = askingPrice;
     }
 
     public OrderListingRequest(String orderId, EOrderStatus status) {

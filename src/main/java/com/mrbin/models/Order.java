@@ -33,6 +33,14 @@ public class Order {
     @Field(name = "seller")
     public String sellerUserName;
 
+    @JsonProperty("type")           //  Total 3 types of order can be issued
+    @Field(name = "type")           //  Marketplace, Donation, Recycle
+    private String type;
+
+    @JsonProperty("price")          //  Only applicable for recycle orders
+    @Field(name = "price")          //  Will be populated by the recyclers
+    private double askingPrice;
+
     @JsonProperty("created-at")
     @Field(name = "created-at")
     public Date createdAt;
@@ -45,10 +53,22 @@ public class Order {
     @Field(name = "status")
     public EOrderStatus orderStatus;
 
-    public Order(Product product, String buyerUserName, String sellerUserName, Date createdAt, EOrderStatus orderStatus) {
+    public Order(Product product, String buyerUserName, String sellerUserName, Date createdAt, String type, EOrderStatus orderStatus) {
         this.product = product;
         this.buyerUserName = buyerUserName;
         this.sellerUserName = sellerUserName;
+        this.createdAt = createdAt;
+        this.type = type;
+        this.orderStatus = orderStatus;
+    }
+
+    //    For recycle orders
+    public Order(Product product, String buyerUserName, String sellerUserName, String type, double askingPrice, Date createdAt, EOrderStatus orderStatus) {
+        this.product = product;
+        this.buyerUserName = buyerUserName;
+        this.sellerUserName = sellerUserName;
+        this.type = type;
+        this.askingPrice = askingPrice;
         this.createdAt = createdAt;
         this.orderStatus = orderStatus;
     }
